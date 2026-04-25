@@ -1,35 +1,31 @@
-from google import genai
 import os
+import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
 
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-def generate_fairness_explanation(fairness_results):
-    try:
-        client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-        prompt = f"""
-        Explain hiring bias in simple HR terms:
+def generate_fairness_explanation(fairness):
 
-        Male Selection Rate: {fairness_results['Male Selection Rate']}
-        Female Selection Rate: {fairness_results['Female Selection Rate']}
-        Disparate Impact Ratio: {fairness_results['Disparate Impact Ratio']}
+    prompt = f"""
+    You are an HR fairness AI expert.
 
-        Include:
-        1. Who is affected
-        2. Why it is risky
-        3. Ethical concerns
-        4. Hiring recommendations
-        5. How to improve fairness
-        """
+    Analyze this hiring system:
 
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=prompt
-        )
+    Male Selection Rate: {fairness['Male Selection Rate']}
+    Female Selection Rate: {fairness['Female Selection Rate']}
+    Disparate Impact Ratio: {fairness['Disparate Impact Ratio']}
 
-        return response.text
+    Provide:
+    1. Bias explanation
+    2. Risk level
+    3. Ethical impact
+    4. Fix suggestions
+    """
 
-    except Exception as e:
-        return f"AI explanation unavailable (fallback mode). Error: {str(e)}"
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    response = model.generate_content(prompt)
+
+    return response.text
