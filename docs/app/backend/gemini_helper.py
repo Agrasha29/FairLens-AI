@@ -12,7 +12,7 @@ genai.configure(api_key=api_key)
 
 def generate_fairness_explanation(fairness):
 
-    model = genai.GenerativeModel("models/gemini-1.5-flash")
+    model = genai.GenerativeModel("models/gemini-1.5-pro")
 
     prompt = f"""
     HR fairness analysis:
