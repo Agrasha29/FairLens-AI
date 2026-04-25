@@ -11,3 +11,5 @@ python-dotenv
 google-generativeai
 fpdf
 joblib
+streamlit
+google-genai
