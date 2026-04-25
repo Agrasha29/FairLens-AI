@@ -11,5 +11,3 @@ python-dotenv
 google-generativeai
 fpdf
 joblib
-google-genai
-
