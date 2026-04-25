@@ -1,31 +1,26 @@
 import os
 import google.generativeai as genai
-from dotenv import load_dotenv
+import streamlit as st
 
-load_dotenv()
+api_key = os.getenv("GEMINI_API_KEY") or st.secrets.get("GEMINI_API_KEY")
 
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+if not api_key:
+    raise ValueError("GEMINI_API_KEY not found")
+
+genai.configure(api_key=api_key)
 
 
 def generate_fairness_explanation(fairness):
 
-    prompt = f"""
-    You are an HR fairness AI expert.
+    model = genai.GenerativeModel("models/gemini-1.5-flash")
 
-    Analyze this hiring system:
+    prompt = f"""
+    HR fairness analysis:
 
     Male Selection Rate: {fairness['Male Selection Rate']}
     Female Selection Rate: {fairness['Female Selection Rate']}
     Disparate Impact Ratio: {fairness['Disparate Impact Ratio']}
-
-    Provide:
-    1. Bias explanation
-    2. Risk level
-    3. Ethical impact
-    4. Fix suggestions
     """
 
-    model = genai.GenerativeModel("gemini-1.5-flash")
     response = model.generate_content(prompt)
-
     return response.text
