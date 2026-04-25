@@ -116,6 +116,23 @@ FairLens-AI/
 ├── README.md
 
 ---
+FairLens-AI/
+│
+├── app/
+│   ├── frontend/        # Streamlit UI
+│   ├── backend/         # Gemini + Bias Fix logic
+│   ├── models/          # Fairness metrics + ML logic
+│   ├── utils/           # Preprocessing + PDF generator
+│
+├── data/
+│   ├── raw/
+│   ├── processed/
+│
+├── notebooks/
+├── tests/
+├── main.py
+├── requirements.txt
+└── README.md
 
 ## ⚙️ Installation & Setup
 
