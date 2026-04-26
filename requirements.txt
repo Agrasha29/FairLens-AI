@@ -13,3 +13,4 @@ fpdf
 joblib
 reportlab
 plotly
+google-genai
