@@ -146,6 +146,7 @@ if uploaded_file:
     # =====================================================
     # 📊 VISUALIZATION
     # =====================================================
+    
     st.subheader("📊 Gender Bias Visualization")
 
     labels = ["Male", "Female"]
@@ -154,9 +155,9 @@ if uploaded_file:
         fairness["Female Selection Rate"]
     ]
 
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(4, 2.5))
 
-    bars = ax.bar(labels, values)
+    bars = ax.bar(labels, values, color=["#4C78A8", "#F58518"])
 
     ax.set_ylabel("Selection Rate")
     ax.set_ylim(0, 1)
@@ -164,11 +165,18 @@ if uploaded_file:
 
     for bar in bars:
         height = bar.get_height()
-        ax.text(bar.get_x() + bar.get_width()/2, height + 0.01,
-                f"{height:.2f}", ha="center")
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            height + 0.01,
+            f"{height:.2f}",
+            ha="center",
+            fontsize=9
+        )
 
-    st.pyplot(fig)
+    st.pyplot(fig, use_container_width=False)  
+  
 
+    
     # =====================================================
     # 🚨 BIAS STATUS
     # =====================================================
